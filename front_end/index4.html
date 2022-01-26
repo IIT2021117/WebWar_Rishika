@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>RavenClaw</title>
+    <link rel="stylesheet" href="style4.css">
+</head>
+<body>
+    <h1>RAVENCLAW</h1>
+    <img src="ravenclaw.gif" alt="Ravenclaw" class="logo4">
+
+    <p></p>
+
+
+     <div id="myData4" class="card"></div>
+
+    <script>
+        fetch('http://hp-api.herokuapp.com/api/characters/house/ravenclaw')
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                appendData(data);
+            })
+            .catch(function (err) {
+                console.log('error: ' + err);
+            });
+        function appendData(data) {
+            var mainContainer = document.getElementById("myData4");
+            for (var i = 0; i < data.length; i++) {
+                var div = document.createElement("div");
+                div.innerHTML =
+                `<div class="card" >
+                        <img src="${data[i].image}">
+                        <h3>${data[i].name}</h3>
+                        <p>${data[i].dateOfBirth}</p>
+                        <p>${data[i].species}</p>
+                        <p>${data[i].alternate_names}</p>
+                        <p>${data[i].wand.wood}</p>
+                        <p>${data[i].wand.core}</p>
+                        <p>${data[i].wand.length}</p>
+                        <p>${data[i].patronus}</p>
+                    
+                    </div>`
+                
+                
+                 
+                mainContainer.appendChild(div);
+            }
+        }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Gryffindor</title>
+    <link rel="stylesheet" href="style1.css">
+</head>
+<body>
+
+    <h1><b>GRYFFINDOR</b></h1>
+   <img src="gryffindor.gif" class="logo">
+    <p>
+        Those in this house are well known for their bravery and courage. Their house animal is the lion and their house colors are scarlet and gold.  Gryffindors never back down from a fight or doing what they believe is right. Some of the most famous gryffindors include Harry Potter and Albus Dumbledore, the most recent headmaster of Hogwarts.
+    </p>
+    
+    <div id="myData" class="card"></div>
+
+    <script>
+        fetch('http://hp-api.herokuapp.com/api/characters/house/gryffindor')
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                appendData(data);
+            })
+            .catch(function (err) {
+                console.log('error: ' + err);
+            });
+        function appendData(data) {
+            var mainContainer = document.getElementById("myData");
+            for (var i = 0; i < data.length; i++) {
+                var div = document.createElement("div");
+                div.innerHTML =
+                `<div class="card">
+                        <img src="${data[i].image}">
+                        <h3>${data[i].name}</h3>
+                        <p>${data[i].dateOfBirth}</p>
+                        <p>${data[i].species}</p>
+                        <p>${data[i].alternate_names}</p>
+                        <p>${data[i].wand.wood}</p>
+                        <p>${data[i].wand.core}</p>
+                        <p>${data[i].wand.length}</p>
+                        <p>${data[i].patronus}</p>
+                    
+                    </div>`
+                    mainContainer.appendChild(div);
+            }
+        }
+</script>
+</body>
+</html>
+        

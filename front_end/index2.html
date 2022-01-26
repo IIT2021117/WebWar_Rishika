@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hufflepuff</title>
+    <link rel="stylesheet" href="style2.css">
+</head>
+<body>
+    <h1>HUFFLEPUFF</h1>
+    <img src="hufflepuff.gif" alt="Huffepuff" class="logo2">
+
+    <p></p>
+
+
+     <div id="myData2" class="card"></div>
+
+    <script>
+        fetch('http://hp-api.herokuapp.com/api/characters/house/hufflepuff')
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                appendData(data);
+            })
+            .catch(function (err) {
+                console.log('error: ' + err);
+            });
+        function appendData(data) {
+            var mainContainer = document.getElementById("myData2");
+            for (var i = 0; i < data.length; i++) {
+                var div = document.createElement("div");
+                div.innerHTML =
+                `<div class="card">
+                        <img src="${data[i].image}" class="hufchar">
+                        <h3>${data[i].name}</h3>
+                        <p>${data[i].dateOfBirth}</p>
+                        <p>${data[i].species}</p>
+                        <p>${data[i].alternate_names}</p>
+                        <p>${data[i].wand.wood}</p>
+                        <p>${data[i].wand.core}</p>
+                        <p>${data[i].wand.length}</p>
+                        <p>${data[i].patronus}</p>
+                    
+                    </div>`
+                
+                 
+                mainContainer.appendChild(div);
+            }
+        }
+
+
+
+    </script>
+</body>
+</html>
